@@ -13,7 +13,6 @@ function EventItem({ data }) {
 		month: 'long',
 		year: 'numeric',
 	});
-	console.log(data);
 
 	return (
 		<li className={styles.card}>
