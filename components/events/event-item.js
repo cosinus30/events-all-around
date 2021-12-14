@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import styles from './event-item.module.css';
 
 function EventItem({ data }) {
 	const { title, image, date, location, id } = data;
@@ -11,19 +12,19 @@ function EventItem({ data }) {
 	console.log(data);
 
 	return (
-		<li>
-			<Image src={'/' + image} alt={title} width={196} height={64} />
-			<div>
-				<div>
+		<li className={styles.card}>
+            <img src={'/' + image} alt={title}/>
+			<div className={styles.content}>
+				<div className={styles.summary}>
 					<h2>{title}</h2>
-					<div>
+					<div className={styles.date}>
 						<time>{formattedDate}</time>
 					</div>
-					<div>
+					<div className={styles.address}>
 						<address>{location}</address>
 					</div>
 				</div>
-				<div>
+				<div className={styles.actions}>
 					<Link href={`events/${id}`}>Explore Event</Link>
 				</div>
 			</div>
