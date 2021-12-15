@@ -1,13 +1,14 @@
 import Link from "next/link";
 import styles from './button.module.css'
 
-function Button({children, link}){
+function Button({children, link, onClick}){
     return (
-        <Link href={link}>
+        link ? <Link href={link}>
             <a className={styles.btn}>
                 {children}
             </a>
-        </Link>
+        </Link> :
+        <button className={styles.btn} onClick={onClick}>{children}</button>
     )
 
 }
