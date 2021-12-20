@@ -3,6 +3,10 @@ import EventItem from './event-item';
 import styles from './event-list.module.css';
 
 function EventList({ items }) {
+	if(!items){
+		return <h1>Loading...</h1>
+	}
+
 	return (
 		<ul className={styles.list}>
 			{items.map((item) => {
