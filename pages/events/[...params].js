@@ -1,11 +1,36 @@
-import { useRouter } from 'next/router';
 import EventList from '../../components/events/event-list';
-import { getFilteredEvents } from '../../dummy-data';
+import Button from '../../components/ui/button';
+import { useFilteredEvents } from '../../hooks/data-hooks';
 
-function FilteredEventsPage() {
-	const router = useRouter();
-	const [year, month] = router.query.params;
+function FilteredEventsPage({ filteredEvents, year, month }) {
+	if (!filteredEvents || filteredEvents.length === 0) {
+		return (
+			<div>
+				<p className="center">
+					No events found for {year}/{month}
+				</p>
+				<div className="center_div">
+					<Button link={'/events/'}>Go to all events</Button>
+				</div>
+			</div>
+		);
+	}
 
+	return (
+		<div>
+			<h1 className="center">
+				Filtered Events for {year}/{month}
+			</h1>
+			<div className="center_div">
+				<Button link={'/events/'}>Go to all events</Button>
+			</div>
+			<EventList items={filteredEvents} />
+		</div>
+	);
+}
+
+export async function getServerSideProps(req, res) {
+	const [year, month] = req.query.params;
 	if (!year || !month) {
 		return <p className="center">Loading...</p>;
 	}
@@ -13,22 +38,15 @@ function FilteredEventsPage() {
 		return <p className="center">Invalid year or month</p>;
 	}
 
-	const filteredEvents = getFilteredEvents({ year: +year, month: +month });
+	const filteredEvents = await useFilteredEvents({ year: +year, month: +month });
 
-	if (!filteredEvents || filteredEvents.length === 0) {
-		return (
-			<p className="center">
-				No events found for {year}/{month}
-			</p>
-		);
-	}
-
-	return (
-		<div>
-			<h1>Filtered Events Page!</h1>
-			<EventList items={filteredEvents} />
-		</div>
-	);
+	return {
+		props: {
+			filteredEvents: filteredEvents,
+			year: +year,
+			month: +month,
+		},
+	};
 }
 
 export default FilteredEventsPage;
