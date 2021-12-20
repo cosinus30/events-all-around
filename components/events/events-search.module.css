@@ -55,8 +55,9 @@
     }
   
     .controls {
-      width: 80%;
+      width: 90%;
       flex-direction: row;
+      margin: 5px auto;
     }
   
     .control select {
