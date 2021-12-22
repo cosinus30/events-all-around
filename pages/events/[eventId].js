@@ -3,11 +3,11 @@ import EventSummary from '../../components/event-detail/event-summary';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
 import { useEvent, useEvents, useFeaturedEvents } from '../../hooks/data-hooks';
+import Head from 'next/head';
 
 function EventDetailPage({ event }) {
-
-	if(!event){
-		return <h1>Loading...</h1>
+	if (!event) {
+		return <h1>Loading...</h1>;
 	}
 
 	const { title, image, date, location, description } = event;
@@ -19,6 +19,10 @@ function EventDetailPage({ event }) {
 
 	return (
 		<>
+			<Head>
+				<title>{title}</title>
+				<meta name="description" content={description} />
+			</Head>
 			<EventSummary title={title} />
 			<EventLogistics date={date} address={location} image={image} imageAlt={title} />
 			<EventContent>

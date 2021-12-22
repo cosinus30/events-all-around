@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import EventList from '../../components/events/event-list';
 import Button from '../../components/ui/button';
 import { useFilteredEvents } from '../../hooks/data-hooks';
@@ -18,6 +19,10 @@ function FilteredEventsPage({ filteredEvents, year, month }) {
 
 	return (
 		<div>
+			<Head>
+				<title>Searched Events</title>
+				<meta name="description" content={`All events for ${month}/${year}`} />
+			</Head>
 			<h1 className="center">
 				Filtered Events for {year}/{month}
 			</h1>
