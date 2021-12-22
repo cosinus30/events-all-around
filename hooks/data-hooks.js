@@ -1,7 +1,7 @@
-import { firebaseURL } from "../constants";
+import { firebaseURL } from '../constants';
 
 export async function useEvents() {
-	const response = await fetch(firebaseURL);
+	const response = await fetch(firebaseURL + '.json');
 	const feauturedEventsObject = await response.json();
 	const featuredEvents = [];
 	for (const key in feauturedEventsObject) {
@@ -11,7 +11,7 @@ export async function useEvents() {
 }
 
 export async function useFeaturedEvents() {
-	const response = await fetch(firebaseURL);
+	const response = await fetch(firebaseURL + '.json');
 	const feauturedEventsObject = await response.json();
 	const featuredEvents = [];
 	for (const key in feauturedEventsObject) {
@@ -21,7 +21,7 @@ export async function useFeaturedEvents() {
 }
 
 export async function useEvent(id) {
-	const response = await fetch(`${firebaseURL}${id}.json`);
+	const response = await fetch(`${firebaseURL}/${id}.json`);
 	const eventObject = await response.json();
 	return eventObject;
 }
