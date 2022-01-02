@@ -1,15 +1,14 @@
-import { useRouter } from 'next/router';
 import EventSummary from '../../components/event-detail/event-summary';
 import EventLogistics from '../../components/event-detail/event-logistics';
 import EventContent from '../../components/event-detail/event-content';
-import { useEvent, useEvents, useFeaturedEvents } from '../../hooks/data-hooks';
+import { useEvent, useFeaturedEvents } from '../../hooks/data-hooks';
+import Comments  from '../../components/input/comments';
 import Head from 'next/head';
 
-function EventDetailPage({ event }) {
+function EventDetailPage({ event, eventId }) {
 	if (!event) {
 		return <h1>Loading...</h1>;
 	}
-
 	const { title, image, date, location, description } = event;
 	const formattedDate = new Date(date).toLocaleDateString('en-US', {
 		day: 'numeric',
@@ -28,6 +27,7 @@ function EventDetailPage({ event }) {
 			<EventContent>
 				<p>{description}</p>
 			</EventContent>
+			<Comments eventId={eventId} />
 		</>
 	);
 }
@@ -41,6 +41,7 @@ export async function getStaticProps({ params }) {
 	}
 	return {
 		props: {
+			eventId: params.eventId,
 			event: event,
 		},
 		revalidate: 300,
