@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import classes from './newsletter-registration.module.css';
+import NotificationContext from '../../store/notification-context';
 
 function NewsletterRegistration() {
 	const [email, setEmail] = useState('');
-	const [success, setSuccess] = useState(undefined);
+	const {notification, showNotification} = useContext(NotificationContext);
 
 	async function registrationHandler(event) {
 		event.preventDefault();
@@ -17,9 +18,17 @@ function NewsletterRegistration() {
 
 		if (response.status === 200) {
 			setEmail('');
-			setSuccess(true);
+			showNotification({
+				title: 'Welcome!',
+				message: 'You have successfully subscribed to our newsletter.',
+				status: 'success',
+			})
 		} else {
-			setSuccess(false);
+			showNotification({
+				title: 'Ooops!',
+				message: 'Something went wrong',
+				status: 'error',
+			})
 		}
 	}
 
@@ -39,7 +48,6 @@ function NewsletterRegistration() {
 					<button>Register</button>
 				</div>
 			</form>
-      {success && <p>Thanks for subscribing!</p>}
 		</section>
 	);
 }
