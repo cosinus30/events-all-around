@@ -16,8 +16,8 @@ function CommentList({ eventId }) {
 				<ul className={classes.comments}>
 					{comments.map((comment) => {
 						return (
-							<li key={comment.id}>
-								<p>{comment.text}</p>
+							<li key={comment._id}>
+								<p>{comment.comment}</p>
 								<div>
 									By <address>{comment.name}</address>
 								</div>
